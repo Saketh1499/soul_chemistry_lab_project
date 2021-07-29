@@ -504,8 +504,8 @@ function _chemistry_lab_details($chemistry_lab_proposal_id)
 	$download_chemistry_lab = l('Download chemistry lab project','chemistry-lab-project/full-download/project/'.$chemistry_lab_proposal_id);
 	$return_html .= '<strong>Proposer Name:</strong><br />' . $abstracts_pro->name_title . ' ' . $abstracts_pro->contributor_name . '<br /><br />';
 	$return_html .= '<strong>Title of the chemistry lab Project:</strong><br />' . $abstracts_pro->project_title . '<br /><br />';
-	$return_html .= '<strong>Uploaded an abstract (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
-	$return_html .= '<strong>Upload the soul chemistry lab for the developed process:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
+	$return_html .= '<strong>Uploaded a Report (brief outline) of the project:</strong><br />' . $abstract_filename . '<br /><br />';
+	$return_html .= '<strong>Upload the soul chemistry lab project code files for the proposal:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
 	$return_html .= $download_chemistry_lab;
 	return $return_html;
 }

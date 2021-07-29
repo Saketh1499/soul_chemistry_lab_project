@@ -153,10 +153,10 @@ function chemistry_lab_upload_abstract_code_form($form, &$form_state)
 		$existing_uploaded_A_file = new stdClass();
 		$existing_uploaded_A_file->filename = "No file uploaded";
 	} //!$existing_uploaded_A_file
-	$form['upload_an_abstract'] = array(
+	$form['upload_an_report'] = array(
 		'#type' => 'file',
-		'#title' => t('Upload an abstract of the project.') ,
-		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_A_file->filename . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_abstract_upload_extensions', '') . '</span>'
+		'#title' => t('Upload the report.') ,
+		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_A_file->filename . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_report_upload_extensions', '') . '</span>'
 	));
 	$existing_uploaded_S_file = default_value_for_uploaded_files("S", $proposal_data->id);
 	if (!$existing_uploaded_S_file)
@@ -164,10 +164,10 @@ function chemistry_lab_upload_abstract_code_form($form, &$form_state)
 		$existing_uploaded_S_file = new stdClass();
 		$existing_uploaded_S_file->filename = "No file uploaded";
 	} //!$existing_uploaded_S_file
-	$form['upload_chemistry_lab_developed_process'] = array(
+	$form['upload_chemistry_lab_code_files'] = array(
 		'#type' => 'file',
-		'#title' => t('Upload the Project Files'),
-		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_S_file->filename . '<br />Separate filenames with underscore. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_project_files_extensions', '') . '</span>'
+		'#title' => t('Upload the code file'),
+		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_S_file->filename . '<br />Separate filenames with underscore. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_code_files_extensions', '') . '</span>'
 	);
 	$form['prop_id'] = array(
 		'#type' => 'hidden',
@@ -205,25 +205,25 @@ function chemistry_lab_upload_abstract_code_form_validate($form, &$form_state)
 		$existing_uploaded_S_file = default_value_for_uploaded_files("S", $form_state['values']['prop_id']);
 		if (!$existing_uploaded_S_file)
 		{
-			if (!($_FILES['files']['name']['upload_chemistry_lab_developed_process']))
-				form_set_error('upload_chemistry_lab_developed_process', t('Please upload the file.'));
+			if (!($_FILES['files']['name']['upload_chemistry_lab_code_files']))
+				form_set_error('upload_chemistry_lab_code_files', t('Please upload the file.'));
 		} //!$existing_uploaded_S_file
 		if (!$existing_uploaded_A_file)
 		{
-			if (!($_FILES['files']['name']['upload_an_abstract']))
-				form_set_error('upload_an_abstract', t('Please upload the file.'));
+			if (!($_FILES['files']['name']['upload_an_report']))
+				form_set_error('upload_an_report', t('Please upload the file.'));
 		} //!$existing_uploaded_A_file
 		/* check for valid filename extensions */
-		if ($_FILES['files']['name']['upload_an_udc'] || $_FILES['files']['name']['upload_an_abstract'] || $_FILES['files']['name']['upload_chemistry_lab_developed_process'])
+		if ($_FILES['files']['name']['upload_an_udc'] || $_FILES['files']['name']['upload_an_report'] || $_FILES['files']['name']['upload_chemistry_lab_code_files'])
 		{
 			foreach ($_FILES['files']['name'] as $file_form_name => $file_name)
 			{
 				if ($file_name)
 				{
 					/* checking file type */
-					if (strstr($file_form_name, 'upload_chemistry_lab_developed_process'))
+					if (strstr($file_form_name, 'upload_chemistry_lab_code_files'))
 						$file_type = 'S';
-					else if (strstr($file_form_name, 'upload_an_abstract'))
+					else if (strstr($file_form_name, 'upload_an_report'))
 						$file_type = 'A';
 					else
 						$file_type = 'U';
@@ -231,10 +231,10 @@ function chemistry_lab_upload_abstract_code_form_validate($form, &$form_state)
 					switch ($file_type)
 					{
 						case 'S':
-							$allowed_extensions_str = variable_get('chemistry_lab_project_files_extensions', '');
+							$allowed_extensions_str = variable_get('chemistry_lab_code_files_extensions', '');
 							break;
 						case 'A':
-							$allowed_extensions_str = variable_get('chemistry_lab_abstract_upload_extensions', '');
+							$allowed_extensions_str = variable_get('chemistry_lab_report_upload_extensions', '');
 							break;
 					} //$file_type
 					$allowed_extensions = explode(',', $allowed_extensions_str);
@@ -339,11 +339,11 @@ function chemistry_lab_upload_abstract_code_form_submit($form, &$form_state)
 		if ($file_name)
 		{
 			/* checking file type */
-			if (strstr($file_form_name, 'upload_chemistry_lab_developed_process'))
+			if (strstr($file_form_name, 'upload_chemistry_lab_code_files'))
 			{
 				$file_type = 'S';
-			} //strstr($file_form_name, 'upload_chemistry_lab_developed_process')
-			else if (strstr($file_form_name, 'upload_an_abstract'))
+			} //strstr($file_form_name, 'upload_chemistry_lab_code_files')
+			else if (strstr($file_form_name, 'upload_an_report'))
 			{
 				$file_type = 'A';
 			} 

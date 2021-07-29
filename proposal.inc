@@ -76,6 +76,13 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#maxlength' => 250,
 		'#required' => TRUE
 	);
+	$form['contributor_email_id'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Email'),
+		'#size' => 30,
+		'#value' => $user->mail,
+		'#disabled' => TRUE
+	);
 	$form['contributor_contact_no'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Contact No.'),
@@ -85,38 +92,22 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		),
 		'#maxlength' => 250
 	);
-	$form['contributor_email_id'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Email'),
-		'#size' => 30,
-		'#value' => $user->mail,
-		'#disabled' => TRUE
-	);
-	$form['project_guide_name'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Name of the faculty member of your Institution, if any, who helped you with this project '),
-		'#size' => 250,
-		'#attributes' => array(
-			'placeholder' => t('Enter full name of faculty member')
-		),
-		'#maxlength' => 250
-	);
-	$form['project_guide_email_id'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
-		'#size' => 30,
-		'#attributes' => array(
-			'placeholder' => t('Enter Email id of the faculty member')
-		),
-	);
 	$form['university'] = array(
 		'#type' => 'textfield',
 		'#title' => t('School/Institute/University/Organisation'),
 		'#size' => 80,
 		'#maxlength' => 200,
-		'#required' => TRUE,
 		'#attributes' => array(
-			'placeholder' => 'Insert full name of your School/Institute/University/Organisation.... '
+			'placeholder' => 'Enter full name of your School/Institute/University/Organisation.... '
+		)
+	);
+	$form['department'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Department/Branch'),
+		'#size' => 80,
+		'#maxlength' => 200,
+		'#attributes' => array(
+			'placeholder' => 'Enter Department/Branch.... '
 		)
 	);
 	$form['country'] = array(
@@ -213,6 +204,32 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'item',
 		'#markup' => '<hr>'
 	);
+	$form['project_guide_name'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Name of the faculty member of your Institution, if any, who helped you with this project '),
+		'#size' => 250,
+		'#attributes' => array(
+			'placeholder' => t('Enter full name of faculty member')
+		),
+		'#maxlength' => 250
+	);
+	$form['project_guide_department'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Department of the faculty member of your Institution, if any, who helped you with this project '),
+		'#size' => 250,
+		'#attributes' => array(
+			'placeholder' => t('Enter department name of faculty member')
+		),
+		'#maxlength' => 250
+	);
+	$form['project_guide_email_id'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
+		'#size' => 30,
+		'#attributes' => array(
+			'placeholder' => t('Enter Email id of the faculty member')
+		),
+	);
 	$form['options'] = array(
 		'#type' => 'select',
 		'#title' => t('How did you come to know about the Chemistry Lab project'),
@@ -225,8 +242,23 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		),
 		'#required' => TRUE,
 		'#tree' => TRUE,
-		//'#validated' => TRUE
+		'#validated' => TRUE
 	);
+	/*$form['other'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Enter your answer'),
+		'#size' => 100,
+		'#attributes' => array(
+			'placeholder' => t('Enter your answer')
+		),
+		'#states' => array(
+			'visible' => array(
+				':input[name="options"]' => array(
+					'value' => 'others'
+				)
+			)
+		)
+	);*/
 	$form['project_title'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Project Title'),
@@ -267,7 +299,7 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'file',
 		//'#title' => t('Upload circuit diagram'),
 		'#size' => 48,
-		'#description' => t('Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('resource_upload_extensions', '') . '</span>'
+		'#description' => t('Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('abstract_upload_extensions', '') . '</span>'
 	);
 	$form['reference'] = array(
 		'#type' => 'textfield',
@@ -445,7 +477,7 @@ if (isset($_FILES['files']))
 						$allowed_extensions_str = variable_get('textbook_companion_source_extensions', '');
 						break;
 				} *///$file_type
-				$allowed_extensions_str = variable_get('resource_upload_extensions', '');
+				$allowed_extensions_str = variable_get('abstract_upload_extensions', '');
 				$allowed_extensions = explode(',', $allowed_extensions_str);
 				$fnames = explode('.', strtolower($_FILES['files']['name'][$file_form_name]));
 				$temp_extension = end($fnames);
@@ -479,6 +511,8 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 	$project_title = trim($v['project_title']);
 	$proposar_name = $v['name_title'] . ' ' . $v['contributor_name'];
 	$university = $v['university'];
+	$department = $v['department'];
+	$options = $v['options'];
 	$month_year_of_degree = $v['month_year_of_degree'];
 	$directory_name = _df_dir_name($project_title, $proposar_name);
 	$result = "INSERT INTO {soul_chemistry_lab_proposal} 
@@ -489,11 +523,13 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     contributor_name,
     contact_no,
     university,
+    department,
     city, 
-    pincode, 
     state, 
     country,
+    pincode,
     project_guide_name,
+    project_guide_department,
     project_guide_email_id,
     options,
     project_title, 
@@ -505,9 +541,9 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     dissapproval_reason,
     creation_date, 
     approval_date,
-    expected_date_of_completion,
     samplefilepath,
-    reference
+    reference,
+    expected_date_of_completion
     ) VALUES
     (
     :uid, 
@@ -516,11 +552,13 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     :contributor_name, 
     :contact_no,
     :university, 
+    :department,
     :city, 
-    :pincode, 
     :state,  
-    :country,
+    :country, 
+    :pincode,
     :project_guide_name,
+    :project_guide_department,
     :project_guide_email_id,
     :options,
     :project_title, 
@@ -532,9 +570,9 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     :dissapproval_reason,
     :creation_date, 
     :approval_date,
-    :expected_date_of_completion,
     :samplefilepath,
-    :reference
+    :reference,
+    :expected_date_of_completion
     )";
 	$args = array(
 		":uid" => $user->uid,
@@ -543,11 +581,13 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		":contributor_name" => _df_sentence_case(trim($v['contributor_name'])),
 		":contact_no" => $v['contributor_contact_no'],
 		":university" => _df_sentence_case($v['university']),
+		":department" => $v['department'],
 		":city" => $v['city'],
 		":pincode" => $v['pincode'],
 		":state" => $v['all_state'],
 		":country" => $v['country'],
 		":project_guide_name" => _df_sentence_case($v['project_guide_name']),
+		":project_guide_department" =>trim($v['project_guide_department']),
 		":project_guide_email_id" => trim($v['project_guide_email_id']),
 		":options" =>$v['options'],
 		":project_title" => _df_sentence_case($v['project_title']),
