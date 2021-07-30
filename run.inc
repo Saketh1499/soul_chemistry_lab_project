@@ -44,7 +44,7 @@ function chemistry_lab_run_form($form, &$form_state)
 		);
 		$form['selected_chemistry_lab'] = array(
 			'#type' => 'item',
-			'#markup' => '<div id="ajax_selected_chemistry_lab">' . l('Download Abstract', "chemistry-lab-project/download/project-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value) . '</div>'
+			'#markup' => '<div id="ajax_selected_chemistry_lab">' . l('Download Abstract', "chemistry-lab-project/download/resource-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value) . '</div>'
 		);
 	}
 	return $form;
@@ -58,7 +58,7 @@ function chemistry_lab_project_details_callback($form, $form_state)
 		$chemistry_lab_details = _chemistry_lab_information($chemistry_lab_default_value);
 		$provider = user_load($chemistry_lab_details->uid);
 		if ($chemistry_lab_details->uid > 0) {
-			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab',l('Download Abstract', "chemistry-lab-project/download/project-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value));
+			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab',l('Download Abstract', "chemistry-lab-project/download/resource-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value));
 		} //$chemistry_lab_details->uid > 0
 		else {
 			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab', '');
@@ -143,7 +143,7 @@ function _chemistry_lab_details($chemistry_lab_default_value)
 		}else{
 		$reference = 'Not provided';
 		}
-		$form['chemistry_lab_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the chemistry lab</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $chemistry_lab_details->name_title . ' ' . $chemistry_lab_details->contributor_name . '</li>' . '<li><strong>Title of the chemistry lab:</strong> ' . l($chemistry_lab_details->project_title,'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value) . '</li>' . '<li><strong>University:</strong> ' . $chemistry_lab_details->university . '</li>' . '<li>'.'<strong>Reference:</strong> ' . $reference .'</li>'.'</ul>';
+		$form['chemistry_lab_details']['#markup'] = '<span style="color: rgb(128, 0, 0);"><strong>About the chemistry lab</strong></span></td><td style="width: 35%;"><br />' . '<ul>' . '<li><strong>Proposer Name:</strong> ' . $chemistry_lab_details->name_title . ' ' . $chemistry_lab_details->contributor_name . '</li>' . '<li><strong>Title of the chemistry lab:</strong> ' . '<span style="color: #5D125D;">' .$chemistry_lab_details->project_title. '</li>' . '<li><strong>University:</strong> ' . $chemistry_lab_details->university . '</li>' . '<li>'.'<strong>Reference:</strong> ' . $reference .'</li>'.'</ul>';
 		$details = $form['chemistry_lab_details']['#markup'];
 		return $details;
 	} //$chemistry_lab_default_value != 0
