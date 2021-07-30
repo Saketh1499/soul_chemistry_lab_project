@@ -85,9 +85,9 @@ function chemistry_lab_abstract()
 		$abstracts_query_process_filename = "File not uploaded";
 	}
 	$return_html .= '<strong>Contributor Name:</strong><br />' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '<br /><br />';
-	$return_html .= '<strong>Title of the Circuit Simulation Project:</strong><br />' . $proposal_data->project_title . '<br /><br />';
-	$return_html .= '<strong>Uploaded abstract of the project:</strong><br />' . $abstract_filename . '<br /><br />';
-	$return_html .= '<strong>Uploaded project files:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
+	$return_html .= '<strong>Title of the Chemistry Lab Project:</strong><br />' . $proposal_data->project_title . '<br /><br />';
+	$return_html .= '<strong>Uploaded Report file of the project:</strong><br />' . $abstract_filename . '<br /><br />';
+	$return_html .= '<strong>Uploaded project files of the project:</strong><br />' . $abstracts_query_process_filename . '<br /><br />';
 	$return_html .= $url . '<br />';
 	return $return_html;
 }
