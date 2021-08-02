@@ -166,7 +166,7 @@ function chemistry_lab_upload_abstract_code_form($form, &$form_state)
 	} //!$existing_uploaded_S_file
 	$form['upload_chemistry_lab_code_files'] = array(
 		'#type' => 'file',
-		'#title' => t('Upload the code file'),
+		'#title' => t('Upload the Project file'),
 		'#description' => t('<span style="color:red;">Current File :</span> ' . $existing_uploaded_S_file->filename . '<br />Separate filenames with underscore. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_code_files_extensions', '') . '</span>'
 	);
 	$form['prop_id'] = array(

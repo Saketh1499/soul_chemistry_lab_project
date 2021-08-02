@@ -8,7 +8,7 @@ function soul_chemistry_lab_upload_code_delete()
 {
   global $user;
 
-  $root_path = soul_chemistry_lab_path();
+  $root_path = chemistry_lab_path();
   $solution_id = (int)arg(3);
 
   /* check solution */

@@ -36,7 +36,7 @@ function chemistry_lab_settings_form($form, $form_state)
 		'#size' => 50,
 		'#maxlength' => 255,
 		'#required' => TRUE,
-		'#default_value' => variable_get('abstract_upload_extensions', '')
+		'#default_value' => variable_get('chemistry_lab_abstract_upload_extensions', '')
 	);
 	$form['extensions']['report_upload'] = array(
 		'#type' => 'textfield',
@@ -71,7 +71,7 @@ function chemistry_lab_settings_form_submit($form, &$form_state)
 	variable_set('chemistry_lab_emails', $form_state['values']['emails']);
 	variable_set('chemistry_lab_cc_emails', $form_state['values']['cc_emails']);
 	variable_set('chemistry_lab_from_email', $form_state['values']['from_email']);
-	variable_set('abstract_upload_extensions', $form_state['values']['abstract_upload']);
+	variable_set('chemistry_lab_abstract_upload_extensions', $form_state['values']['abstract_upload']);
 	variable_set('chemistry_lab_report_upload_extensions', $form_state['values']['report_upload']);
 	variable_set('chemistry_lab_code_files_extensions', $form_state['values']['chemistry_lab_code_upload']);
 	drupal_set_message(t('Settings updated'), 'status');

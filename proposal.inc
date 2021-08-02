@@ -299,7 +299,7 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'file',
 		//'#title' => t('Upload circuit diagram'),
 		'#size' => 48,
-		'#description' => t('Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('abstract_upload_extensions', '') . '</span>'
+		'#description' => t('Upload filenames with allowed extensions only. No spaces or any special characters allowed in filename.') . '<br />' . t('<span style="color:red;">Allowed file extensions : ') . variable_get('chemistry_lab_abstract_upload_extensions', '') . '</span>'
 	);
 	$form['reference'] = array(
 		'#type' => 'textfield',
@@ -477,7 +477,7 @@ if (isset($_FILES['files']))
 						$allowed_extensions_str = variable_get('textbook_companion_source_extensions', '');
 						break;
 				} *///$file_type
-				$allowed_extensions_str = variable_get('abstract_upload_extensions', '');
+				$allowed_extensions_str = variable_get('chemistry_lab_abstract_upload_extensions', '');
 				$allowed_extensions = explode(',', $allowed_extensions_str);
 				$fnames = explode('.', strtolower($_FILES['files']['name'][$file_form_name]));
 				$temp_extension = end($fnames);
@@ -496,7 +496,7 @@ if (isset($_FILES['files']))
 function chemistry_lab_proposal_form_submit($form, &$form_state)
 {
 	global $user;
-	$root_path = soul_chemistry_lab_path();
+	$root_path = chemistry_lab_path();
 	if (!$user->uid)
 	{
 		drupal_set_message('It is mandatory to login on this website to access the proposal form', 'error');
@@ -672,8 +672,4 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		drupal_set_message('Error sending email message.', 'error');
 	drupal_set_message(t('We have received your soul chemistry lab proposal. We will get back to you soon.'), 'status');
 	drupal_goto('');
-}
-
-function soul_chemistry_lab_path() {
-  return $_SERVER['DOCUMENT_ROOT'] . base_path() . 'soul_uploads/chemistry_lab_uploads/';
 }
