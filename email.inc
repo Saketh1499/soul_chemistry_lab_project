@@ -241,7 +241,7 @@ Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
 
 Kindly access this link to download the same.
-https://soul.fossee.in/chemistry-lab-project/completed-flowsheet
+https://soul.fossee.in/chemistry-lab-project/completed-labs
 
 Thank you for participating in the SOUL Chemistry Lab Project. You are
 welcome to propose a new flowsheet.
@@ -389,7 +389,7 @@ Experiment Title: ' . $experiment_data->title . '
 Solution number: ' . $params['solution_disapproved']['solution_number'] . '
 Caption: ' . $params['solution_disapproved']['solution_caption'] . '
 
-Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/chemistry-lab-project/chemistry-lab-project-submission-guidelines
+Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/chemistry-lab-project/chemistry-lab-project/submission-guidelines
 
 Best Wishes,
 
@@ -482,7 +482,7 @@ Dear !user_name,
 
 You have uploaded following dependency files : ' . $dependency_files . '
 
-Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/soul-chemistry-lab-project/chemistry-lab-project-submission-guidelines
+Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/soul-chemistry-lab-project/chemistry-lab-project/submission-guidelines
 
 Best Wishes,
 
