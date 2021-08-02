@@ -232,7 +232,7 @@ function chemistry_lab_schema()
                 'type' => 'int',
                 'length' => '11',
                 'not null' => TRUE
-            ),
+            )
           ),
         'primary key' => array(
             'id'
@@ -344,7 +344,7 @@ function chemistry_lab_schema()
                 'type' => 'varchar',
                 'length' => '100',
                 'not null' => TRUE
-            ),
+            )
         ),
         'primary key' => array(
             'id'
@@ -577,7 +577,7 @@ function chemistry_lab_schema()
                 'type' => 'int',
                 'length' => '11',
                 'not null' => TRUE
-            ),
+            )
         ),
         'primary key' => array(
             'id'
