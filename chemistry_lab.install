@@ -263,7 +263,7 @@ function chemistry_lab_schema()
                 'type' => 'varchar',
                 'length' => '500',
                 'not null' => TRUE
-            )
+            ),
             'description' => array(
                 'description' => t('TODO: please describe this field!'),
                 'type' => 'varchar',
