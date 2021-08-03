@@ -225,22 +225,22 @@ function chemistry_lab_proposal_approval_form($form, &$form_state)
 		'#markup' => $proposal_data->description,
 		'#title' => t('Description of the chemistry lab Project')
 	);
-	if (($proposal_data->samplefilepath != "") && ($proposal_data->samplefilepath != 'NULL'))
+	if (($proposal_data->abstractfilepath != "") && ($proposal_data->abstractfilepath != 'NULL'))
 	{
-		$str = substr($proposal_data->samplefilepath,strrpos($proposal_data->samplefilepath, '/'));
+		$str = substr($proposal_data->abstractfilepath,strrpos($proposal_data->abstractfilepath, '/'));
 		$resource_file =ltrim($str, '/');
 		
-		$form['samplefilepath'] = array(
+		$form['abstractfilepath'] = array(
 			'#type' => 'item',
-			'#title' => t('Resource file '),
-			'#markup' => l($resource_file, 'chemistry-lab-project/download/resource-file/' . $proposal_id) . ""
+			'#title' => t('Abstract file '),
+			'#markup' => l($resource_file, 'chemistry-lab-project/download/abstract-file/' . $proposal_id) . ""
 		);
 	} //$proposal_data->user_defined_compound_filepath != ""
 	else
 	{
-		$form['samplefilepath'] = array(
+		$form['abstractfilepath'] = array(
 			'#type' => 'item',
-			'#title' => t('Resource file '),
+			'#title' => t('Abstract file '),
 			'#markup' => "Not uploaded<br><br>"
 		);
 	}
@@ -900,9 +900,9 @@ function chemistry_lab_proposal_edit_form_submit($form, &$form_state)
 	{
 		return;
 	}
-	$str = substr($proposal_data->samplefilepath,strrpos($proposal_data->samplefilepath, '/'));
+	$str = substr($proposal_data->abstractfilepath,strrpos($proposal_data->abstractfilepath, '/'));
 	$resource_file =ltrim($str, '/');
-	$samplefilepath = $directory_name . '/' . $resource_file;
+	$abstractfilepath = $directory_name . '/' . $resource_file;
 	$query = "UPDATE soul_chemistry_lab_proposal SET 
 				name_title=:name_title,
 				contributor_name=:contributor_name,
@@ -913,7 +913,7 @@ function chemistry_lab_proposal_edit_form_submit($form, &$form_state)
 				project_title=:project_title,
 				reference=:reference,
 				directory_name=:directory_name ,
-				samplefilepath=:samplefilepath
+				abstractfilepath=:abstractfilepath
 				WHERE id=:proposal_id";
 	$args = array(
 		':name_title' => $v['name_title'],
@@ -925,7 +925,7 @@ function chemistry_lab_proposal_edit_form_submit($form, &$form_state)
 		':project_title' => $project_title,
 		':reference' => $v['reference'],
 		':directory_name' => $directory_name,
-		':samplefilepath' => $samplefilepath,
+		':abstractfilepath' => $abstractfilepath,
 		':proposal_id' => $proposal_id
 	);
 	$result = db_query($query, $args);

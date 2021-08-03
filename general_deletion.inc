@@ -38,7 +38,7 @@ function chemistry_lab_abstract_delete_project($proposal_id)
 	$dir_path_udc = $root_path . $proposal_data->directory_name;
 	if (is_dir($dir_path_udc))
 	{
-		unlink($root_path . $proposal_data->samplefilepath);
+		unlink($root_path . $proposal_data->abstractfilepath);
 		$res = rmdir($dir_path_udc);
 	} //is_dir($dir_path_udc)
 	db_delete('soul_chemistry_lab_proposal')->condition('id', $proposal_data->id)->execute();
@@ -83,7 +83,7 @@ WHERE dfsa.id = :abstract_id", array(
 		$dir_path_udc = $root_path . $abstract_f_data->directory_name;
 		if (is_dir($dir_path_udc))
 		{
-			unlink($root_path . $abstract_f_data->samplefilepath);
+			unlink($root_path . $abstract_f_data->abstractfilepath);
 			//$res = rmdir($dir_path_udc);
 			/*if (!$res)
 			{

@@ -210,7 +210,7 @@ function chemistry_lab_schema()
                 'default value' => '0',
                 'not null' => TRUE
             ),
-          'samplefilepath' => array(
+          'abstractfilepath' => array(
                 'description' => t('TODO: please describe this field!'),
                 'type' => 'text',
                 'not null' => TRUE
@@ -220,12 +220,6 @@ function chemistry_lab_schema()
                 'type' => 'text',
                 'not null' => TRUE
             ),
-          'fellowship' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'varchar',
-                'length' => '10',
-                'not null' => TRUE
-            ),
           'expected_date_of_completion' => array(
                 'description' => t('TODO: please describe this field!'),
                 'type' => 'int',
@@ -233,44 +227,6 @@ function chemistry_lab_schema()
                 'not null' => TRUE
             )
           ),
-        'primary key' => array(
-            'id'
-        )
-    );
-    /* experiment */
-    $schema['soul_chemistry_lab_experiment'] = array(
-        'description' => t('TODO: please describe this table!'),
-        'fields' => array(
-            'id' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'serial',
-                'not null' => TRUE
-            ),
-            'proposal_id' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'int',
-                'length' => '11',
-                'not null' => TRUE
-            ),
-            'number' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'int',
-                'length' => '11',
-                'not null' => TRUE
-            ),
-            'title' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'varchar',
-                'length' => '500',
-                'not null' => TRUE
-            ),
-            'description' => array(
-                'description' => t('TODO: please describe this field!'),
-                'type' => 'varchar',
-                'length' => '1000',
-                'not null' => TRUE
-            )
-        ),
         'primary key' => array(
             'id'
         )

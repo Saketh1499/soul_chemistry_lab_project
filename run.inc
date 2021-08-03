@@ -44,7 +44,7 @@ function chemistry_lab_run_form($form, &$form_state)
 		);
 		$form['selected_chemistry_lab'] = array(
 			'#type' => 'item',
-			'#markup' => '<div id="ajax_selected_chemistry_lab">' . l('Download Abstract', "chemistry-lab-project/download/resource-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value) . '</div>'
+			'#markup' => '<div id="ajax_selected_chemistry_lab">' . l('Download Abstract', "chemistry-lab-project/download/abstract-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value) . '</div>'
 		);
 	}
 	return $form;
@@ -58,7 +58,7 @@ function chemistry_lab_project_details_callback($form, $form_state)
 		$chemistry_lab_details = _chemistry_lab_information($chemistry_lab_default_value);
 		$provider = user_load($chemistry_lab_details->uid);
 		if ($chemistry_lab_details->uid > 0) {
-			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab',l('Download Abstract', "chemistry-lab-project/download/resource-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value));
+			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab',l('Download Abstract', "chemistry-lab-project/download/abstract-file/" . $chemistry_lab_default_value) . '<br>' . l('Download chemistry lab', 'chemistry-lab-project/full-download/project/' . $chemistry_lab_default_value));
 		} //$chemistry_lab_details->uid > 0
 		else {
 			$commands[] = ajax_command_html('#ajax_selected_chemistry_lab', '');

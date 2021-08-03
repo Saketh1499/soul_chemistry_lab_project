@@ -10,7 +10,7 @@ function chemistry_lab_download_upload_file()
 	$query->range(0, 1);
 	$result = $query->execute();
 	$chemistry_lab_upload_file = $result->fetchObject();
-	$samplecodename = substr($chemistry_lab_upload_file->samplefilepath, strrpos($chemistry_lab_upload_file->samplefilepath, '/') + 1);
+	$samplecodename = substr($chemistry_lab_upload_file->abstractfilepath, strrpos($chemistry_lab_upload_file->abstractfilepath, '/') + 1);
 			ob_clean();
             header("Pragma: public");
             header("Expires: 0");
@@ -19,12 +19,12 @@ function chemistry_lab_download_upload_file()
             header("Content-Description: File Transfer");
             header('Content-Type: application/pdf');
             header('Content-disposition: attachment; filename="' . $samplecodename . '"');
-            header('Content-Length: ' . filesize($root_path . $chemistry_lab_upload_file->samplefilepath));
+            header('Content-Length: ' . filesize($root_path . $chemistry_lab_upload_file->abstractfilepath));
             header("Content-Transfer-Encoding: binary");
             header('Expires: 0');
             header('Pragma: no-cache');
             ob_clean();
-            readfile($root_path . $chemistry_lab_upload_file->samplefilepath);
+            readfile($root_path . $chemistry_lab_upload_file->abstractfilepath);
 	        //ob_end_flush();
            
            //flush();

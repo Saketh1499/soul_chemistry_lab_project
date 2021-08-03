@@ -359,7 +359,7 @@ function chemistry_lab_menu()
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'run.inc'
 	);
-	$items['chemistry-lab-project/download/resource-file'] = array(
+	$items['chemistry-lab-project/download/abstract-file'] = array(
 		'title' => 'Download user defined compound file',
 		'description' => 'Download resource file',
 		'page callback' => 'chemistry_lab_download_upload_file',
