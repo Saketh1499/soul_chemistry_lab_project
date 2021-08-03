@@ -16,10 +16,6 @@ function chemistry_lab_install()
     $upload_path = $_SERVER['DOCUMENT_ROOT'] . base_path() . 'soul_uploads/chemistry_lab_uploads/';
     if (!is_dir($upload_path))
         mkdir($upload_path);
-    if (!is_dir($upload_path . '/latex'))
-        mkdir($upload_path . '/latex');
-    if (!is_dir($upload_path . '/DEPENDENCIES'))
-        mkdir($upload_path . '/DEPENDENCIES');
   }
 /**
  * Implementation of hook_uninstall().
