@@ -123,7 +123,7 @@ function chemistry_lab_abstract_bulk_approval_form_submit($form, &$form_state)
 					} //$abstract_data = $abstracts_q->fetchObject()
 					drupal_set_message(t('Approved chemistry lab project.'), 'status');
 					// email 
-					$email_subject = t('[!site_name][chemistry lab Project] Your uploaded chemistry lab project have been approved', array(
+					$email_subject = t('[!site_name][chemistry lab Project] Your uploaded project files for chemistry lab project have been approved', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(
@@ -131,8 +131,9 @@ function chemistry_lab_abstract_bulk_approval_form_submit($form, &$form_state)
 
 Dear !user_name,
 
-Your uploaded abstract for the chemistry lab project has been approved:
+Your uploaded report and project files for the chemistry lab project has been approved:
 
+Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Title of chemistry lab project  : ' . $user_info->project_title . '
 
 Best Wishes,
