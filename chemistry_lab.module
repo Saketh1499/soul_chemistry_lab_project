@@ -714,58 +714,52 @@ function _df_sentence_case($string)
 	} //array( '-', '\'' ) as $delimiter
 	return $string;
 }
-function _soul_list_of_city_pincode($city=Null, $state=NULL, $district=NULL)
+function _df_list_of_states()
 {
-	$pincode = array();
-	if($city){
-		$pincode_list = db_query("SELECT pincode FROM all_india_pincode WHERE city = :city AND state = :state AND district = :district", array(':city' => $city,':state'=> $state, ':district' => $district));
-		while ($pincode_list_data = $pincode_list->fetchObject())
-		{
-			$pincode[$pincode_list_data->pincode] = $pincode_list_data->pincode;
-		}
-	}
-	else{
-		$pincode[000000] = '000000';
-	}
-	return $pincode;
-}
-
-function _soul_list_of_cities($state=Null, $district=NULL)
-{
-	$city = array(''=> '- Select -');
-	if($state){
-		$city_list = db_query("SELECT city FROM all_india_pincode WHERE state = :state AND district = :district ORDER BY city ASC", array(':state'=> $state, ':district' =>$district));
-		while ($city_list_data = $city_list->fetchObject())
-		{
-			$city[$city_list_data->city] = $city_list_data->city;
-		}
-	}
-	return $city;
-}
-
-function _soul_list_of_district($state=Null)
-{
-	$district = array(''=> '- Select -');
-	if($state){
-		$district_list = db_query("SELECT district FROM all_india_pincode WHERE state = :state ORDER BY district ASC", array(':state'=> $state));
-		while ($district_list_data = $district_list->fetchObject())
-		{
-			$district[$district_list_data->district] = $district_list_data->district;
-		}
-	}
-	return $district;
-}
-
-function _soul_list_of_states()
-{
-	$states = array(''=> '- Select -');
-	$states_list = db_query("SELECT state FROM all_india_pincode WHERE country = 'India' ORDER BY state ASC");
+	$states = array(
+		0 => '-Select-'
+	);
+	$query = db_select('list_states_of_india');
+	$query->fields('list_states_of_india');
+	//$query->orderBy('', '');
+	$states_list = $query->execute();
 	while ($states_list_data = $states_list->fetchObject())
 	{
 		$states[$states_list_data->state] = $states_list_data->state;
-	}
+	} //$states_list_data = $states_list->fetchObject()
 	return $states;
 }
+function _df_list_of_cities()
+{
+	$city = array(
+		0 => '-Select-'
+	);
+	$query = db_select('list_cities_of_india');
+	$query->fields('list_cities_of_india');
+	$query->orderBy('city', 'ASC');
+	$city_list = $query->execute();
+	while ($city_list_data = $city_list->fetchObject())
+	{
+		$city[$city_list_data->city] = $city_list_data->city;
+	} //$city_list_data = $city_list->fetchObject()
+	return $city;
+}
+function _df_list_of_pincodes()
+{
+	$pincode = array(
+		0 => '-Select-'
+	);
+	$query = db_select('list_of_all_india_pincode');
+	$query->fields('list_of_all_india_pincode');
+	$query->orderBy('pincode', 'ASC');
+	$pincode_list = $query->execute();
+	while ($pincode_list_data = $pincode_list->fetchObject())
+	{
+		$pincode[$pincode_list_data->pincode] = $pincode_list_data->pincode;
+	} //$pincode_list_data = $pincode_list->fetchObject()
+	return $pincode;
+}
+
 function _df_list_of_departments()
 {
 	$department = array();

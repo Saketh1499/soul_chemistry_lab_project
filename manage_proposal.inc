@@ -200,11 +200,6 @@ function chemistry_lab_proposal_approval_form($form, &$form_state)
 		'#markup' => $proposal_data->city,
 		'#title' => t('City')
 	);
-	$form['district'] = array(
-		'#type' => 'item',
-		'#markup' => $proposal_data->district,
-		'#title' => t('District')
-	);
 	$form['pincode'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->pincode,
@@ -464,11 +459,6 @@ function chemistry_lab_proposal_status_form($form, &$form_state)
 		'#markup' => $proposal_data->city,
 		'#title' => t('City')
 	);
-	$form['District'] = array(
-		'#type' => 'item',
-		'#markup' => $proposal_data->district,
-		'#title' => t('District')
-	);
 	$form['pincode'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->pincode,
@@ -714,19 +704,19 @@ function chemistry_lab_proposal_edit_form($form, &$form_state)
 			'India' => 'India',
 			'Others' => 'Others'
 		),
+		'#default_value' => $proposal_data->country,
 		'#required' => TRUE,
 		'#tree' => TRUE,
-		'#validated' => TRUE,
-		'#default_value' => $proposal_data->country
+		'#validated' => TRUE
 	);
 	$form['other_country'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Other than India'),
 		'#size' => 100,
+		'#default_value' => $proposal_data->country,
 		'#attributes' => array(
 			'placeholder' => t('Enter your country name')
 		),
-		'#default_value' => $proposal_data->country,
 		'#states' => array(
 			'visible' => array(
 				':input[name="country"]' => array(
@@ -770,9 +760,9 @@ function chemistry_lab_proposal_edit_form($form, &$form_state)
 	$form['all_state'] = array(
 		'#type' => 'select',
 		'#title' => t('State'),
-		'#options' => _soul_list_of_states(),
-		'#validated' => TRUE,
+		'#options' => _df_list_of_states(),
 		'#default_value' => $proposal_data->state,
+		'#validated' => TRUE,
 		'#states' => array(
 			'visible' => array(
 				':input[name="country"]' => array(
@@ -784,7 +774,7 @@ function chemistry_lab_proposal_edit_form($form, &$form_state)
 	$form['city'] = array(
 		'#type' => 'select',
 		'#title' => t('City'),
-		'#options' => _soul_list_of_cities(),
+		'#options' => _df_list_of_cities(),
 		'#default_value' => $proposal_data->city,
 		'#states' => array(
 			'visible' => array(
@@ -800,11 +790,10 @@ function chemistry_lab_proposal_edit_form($form, &$form_state)
 		'#size' => 30,
 		'#maxlength' => 6,
 		'#default_value' => $proposal_data->pincode,
-		'#required' => False,
 		'#attributes' => array(
-			'placeholder' => 'Enter pincode....'
+			'placeholder' => 'Insert pincode of your city/ village....'
 		)
-	);	
+	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Title of the chemistry lab Project'),

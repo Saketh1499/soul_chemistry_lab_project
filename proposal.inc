@@ -27,15 +27,6 @@ chemistry_lab_solution : approval_status
 function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 {
 	global $user;
-	$form = array();
-	$state =  _soul_list_of_states();
-	$selected_state = isset($form_state['values']['all_state'])?$form_state['values']['all_state']:key($state);
-	$district = _soul_list_of_district();
-	$selected_district = isset($form_state['values']['district'])?$form_state['values']['district']:key($district);
-	$city = _soul_list_of_cities();
-	$selected_city = isset($form_state['values']['city'])?$form_state['values']['city']:key($city);
-	$pincode = _soul_list_of_city_pincode();
-	$selected_pincode = isset($form_state['values']['picode'])?$form_state['values']['pincode']:key($pincode);
 	/************************ start approve book details ************************/
 	if ($user->uid == 0)
 	{
@@ -125,14 +116,8 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#title' => t('Country'),
 		'#options' => array(
 			'India' => 'India',
-			//'Others' => 'Others'
+			'Others' => 'Others'
 		),
-		'#default_value' => 'India',
-		'#prefix' => '<div id="ajax-country-list-replace">',
-		'#suffix' => '</div>',
-		'#ajax' => array(
-			'callback' => 'ajax_get_city_list_callback',
-			),
 		'#required' => TRUE,
 		'#tree' => TRUE,
 		'#validated' => TRUE
@@ -184,17 +169,8 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	);
 	$form['all_state'] = array(
 		'#type' => 'select',
-		'#title' => t('State/UT'),
-		'#options' => _soul_list_of_states(),
-		//'#empty_value' => '0',
-		//'#empty_option' => '- Select -',
-		'#default_value' => '0',
-		'#prefix' => '<div id="ajax-state-list-replace">',
-		'#suffix' => '</div>',
-		'#required' => TRUE,
-		'#ajax' => array(
-			'callback' => 'ajax_get_district_list_callback',
-			),
+		'#title' => t('State'),
+		'#options' => _df_list_of_states(),
 		'#validated' => TRUE,
 		'#states' => array(
 			'visible' => array(
@@ -204,66 +180,25 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 			)
 		)
 	);
-	$form['district'] = array(
-		'#type' => 'select',
-		'#title' => t('District/Area'),
-		'#options' => _soul_list_of_district($selected_state),
-		'#empty_value' => '0',
-		'#empty_option' => '- Select -',
-		'#prefix' => '<div id="ajax-district-list-replace">',
-		'#suffix' => '</div>',
-		'#validated' => TRUE,
-		'#required' => TRUE,
-		'#ajax' => array(
-			'callback' => 'ajax_get_city_list_callback',
-			),
-		'#states' => array(
-			'invisible' => array(
-				':input[name="all_state"]' => array(
-					'value' => '0'
-				)
-			)
-		)
-	);
 	$form['city'] = array(
 		'#type' => 'select',
-		'#title' => t('City/Area'),
-		'#options' => _soul_list_of_cities($selected_state, $selected_district),
-		'#default_value' => '0',
-		'#empty_value' => '0',
-		'#empty_option' => '- Select -',
-		'#prefix' => '<div id="ajax-city-list-replace">',
-		'#suffix' => '</div>',
-		'#validated' => TRUE,
-		'#required' => TRUE,
-		'#ajax' => array(
-			'callback' => 'ajax_get_city_pincode_list_callback',
-			),
+		'#title' => t('City'),
+		'#options' => _df_list_of_cities(),
 		'#states' => array(
-			'invisible' => array(
-				':input[name="district"]' => array(
-					'value' => '0'
+			'visible' => array(
+				':input[name="country"]' => array(
+					'value' => 'India'
 				)
 			)
 		)
 	);
 	$form['pincode'] = array(
-		'#type' => 'select',
+		'#type' => 'textfield',
 		'#title' => t('Pincode'),
-		'#options' => _soul_list_of_city_pincode($selected_city, $selected_state, $selected_district),
-		'#prefix' => '<div id="ajax-pincode-list-replace">',
-		'#suffix' => '</div>',
-		'#empty_value' => '0',
-		'#empty_option' => '- Select -',
-		'#required' => TRUE,
-		'#validated' => TRUE,
-		'#states' => array(
-			'invisible' => array(
-				':input[name="city"]' => array(
-					'value' => '0'
-				)
-			)
-		)
+		'#attributes' => array(
+			'placeholder' => t('Enter Pincode')
+		),
+		'#size' => 6
 	);
 	/***************************************************************************/
 	$form['hr'] = array(
@@ -591,7 +526,6 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     university,
     department,
     city, 
-    district,
     state, 
     country,
     pincode,
@@ -620,8 +554,7 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
     :contact_no,
     :university, 
     :department,
-    :city, 
-    :district,
+    :city,
     :state,  
     :country, 
     :pincode,
@@ -651,7 +584,6 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		":university" => _df_sentence_case($v['university']),
 		":department" => $v['department'],
 		":city" => $v['city'],
-		":district" => $v['district'],
 		":pincode" => $v['pincode'],
 		":state" => $v['all_state'],
 		":country" => $v['country'],
@@ -741,67 +673,4 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		drupal_set_message('Error sending email message.', 'error');
 	drupal_set_message(t('We have received your soul chemistry lab proposal. We will get back to you soon.'), 'status');
 	drupal_goto('');
-}
-
-
-function ajax_get_city_list_callback($form, $form_state)
-{
-    $state_default_value = $form_state['values']['all_state'];
-    $district_default_value = $form_state['values']['district'];
-    if ($district_default_value != '0')
-    {
-        $form['city']['#options'] = _soul_list_of_cities($state_default_value, $district_default_value);
-        $commands[] = ajax_command_replace("#ajax-city-list-replace", drupal_render($form['city']));
-        $form['pincode']['#options'] =  array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-pincode-list-replace", drupal_render($form['pincode']));
-    }else{
-        $form['city']['#options'] = array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-city-list-replace", drupal_render($form['city']));
-    }
-    return array(
-        '#type' => 'ajax',
-        '#commands' => $commands
-    );
-}
-function ajax_get_district_list_callback($form, $form_state)
-{
-    $state_default_value = $form_state['values']['all_state'];
-    if ($state_default_value != '0')
-    {
-        $form['district']['#options'] = _soul_list_of_district($state_default_value);
-        $commands[] = ajax_command_replace("#ajax-district-list-replace", drupal_render($form['district']));
-        $form['pincode']['#options'] =  array('0' =>'- Select -');
-        $commands[] = ajax_command_replace("#ajax-pincode-list-replace", drupal_render($form['pincode']));
-        $form['city']['#options'] = array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-city-list-replace", drupal_render($form['city']));
-    }else{
-        $form['district']['#options'] = array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-district-list-replace", drupal_render($form['district']));
-        $form['pincode']['#options'] =  array('0' =>'- Select -');
-        $commands[] = ajax_command_replace("#ajax-pincode-list-replace", drupal_render($form['pincode']));
-        $form['city']['#options'] = array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-city-list-replace", drupal_render($form['city']));
-    }
-    return array(
-        '#type' => 'ajax',
-        '#commands' => $commands
-    );
-}
-function ajax_get_city_pincode_list_callback($form, $form_state)
-{
-    $city_default_value = $form_state['values']['city'];
-    $state_default_value = $form_state['values']['all_state'];
-    $district_default_value = $form_state['values']['district'];
-    if ($city_default_value != '0')
-    {
-        $form['pincode']['#options'] = _soul_list_of_city_pincode($city_default_value,$state_default_value,$district_default_value);
-        $commands[] = ajax_command_replace("#ajax-pincode-list-replace", drupal_render($form['pincode']));
-    }else{
-        $form['pincode']['#options'] =  array('0' => '- Select -');
-        $commands[] = ajax_command_replace("#ajax-pincode-list-replace", drupal_render($form['pincode']));
-    }
-    return array(
-        '#type' => 'ajax',
-        '#commands' => $commands
-    );
 }
