@@ -449,7 +449,7 @@ function chemistry_lab_proposal_form_validate($form, &$form_state)
 		} //strlen($form_state['values']['project_title']) > 250
 		else if (strlen($form_state['values']['description']) < 250)
 		{
-			form_set_error('description', t('Minimum charater limit is 500 charaters, please check the length of the description'));
+			form_set_error('description', t('Minimum charater limit is 250 charaters, please check the length of the description'));
 		} //strlen($form_state['values']['project_title']) < 10
 	} //$form_state['values']['project_title'] != ''
 	else
