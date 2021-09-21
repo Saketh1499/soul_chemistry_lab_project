@@ -825,6 +825,34 @@ function chemistry_lab_proposal_edit_form($form, &$form_state)
 	);
 	return $form;
 }
+
+function chemistry_lab_proposal_edit_form_validate($form, &$form_state)
+{
+	//Validation for project title
+	$form_state['values']['project_title'] = trim($form_state['values']['project_title']);
+	if ($form_state['values']['project_title'] != '')
+	{
+		if (strlen($form_state['values']['project_title']) > 250)
+		{
+			form_set_error('project_title', t('Maximum charater limit is 250 charaters only, please check the length of the project title'));
+		} //strlen($form_state['values']['project_title']) > 250
+		else if (strlen($form_state['values']['project_title']) < 10)
+		{
+			form_set_error('project_title', t('Minimum charater limit is 10 charaters, please check the length of the project title'));
+		} //strlen($form_state['values']['project_title']) < 10
+	} //$form_state['values']['project_title'] != ''
+	else
+	{
+		form_set_error('project_title', t('Project title shoud not be empty'));
+	}
+	if(preg_match('/[\^£$%&*()}{@#~?><>.:;`|=+¬]/', $form_state['values']['project_title']))
+	{
+		form_set_error('project_title', t('Special characters are not allowed for Project Title'));
+	} 
+		return $form_state;
+}
+
+
 function chemistry_lab_proposal_edit_form_submit($form, &$form_state)
 {
 	global $user;

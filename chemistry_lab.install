@@ -284,7 +284,7 @@ function chemistry_lab_schema()
                 'length' => '50',
                 'not null' => TRUE
             ),
-            'soul_version' => array(
+            'software_version' => array(
                 'description' => t('TODO: please describe this field!'),
                 'type' => 'varchar',
                 'length' => '20',

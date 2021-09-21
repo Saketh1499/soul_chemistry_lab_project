@@ -773,6 +773,22 @@ function _df_list_of_departments()
 	} //$department_list_data = $department_list->fetchObject()
 	return $department;
 }
+
+function _soul_list_of_software_version()
+  {
+    $software_version = array();
+    $query = db_select('soul_software_version');
+    $query->fields('soul_software_version');
+    //$query->orderBy('id', 'DESC');
+    $software_version_list = $query->execute();
+    while ($software_version_list_data = $software_version_list->fetchObject())
+      {
+        $software_version[$software_version_list_data->software_version] = $software_version_list_data->software_version;
+      }
+    return $software_version;
+  }
+
+
 function _df_dir_name($project, $proposar_name)
 {
 	$project_title = ucname($project);

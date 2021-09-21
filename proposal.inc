@@ -283,13 +283,8 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 	$form['software_version'] = array(
 		'#type' => 'select',
 		'#title' => t('Software Version'),
-		'#options' => array(
-			'vlab 2.1.0' => 'vlab 2.1.0',
-			'Freeplane' => 'Freeplane'
-		),
-		'#required' => TRUE,
-		'#tree' => TRUE,
-		//'#validated' => TRUE
+		'#options' => _soul_list_of_software_version(),
+        '#required' => TRUE
 	);
 	$form['samplefile'] = array(
 		'#type' => 'fieldset',
@@ -441,6 +436,10 @@ function chemistry_lab_proposal_form_validate($form, &$form_state)
 	{
 		form_set_error('project_title', t('Project title shoud not be empty'));
 	}
+	if(preg_match('/[\^£$%&*()}{@#~?><>.:;`|=+¬]/', $form_state['values']['project_title']))
+	{
+		form_set_error('project_title', t('Special characters are not allowed for Project Title'));
+	} 
 	$form_state['values']['description'] = trim($form_state['values']['description']);
 	if ($form_state['values']['description'] != '')
 	{
@@ -504,7 +503,7 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		drupal_set_message('It is mandatory to login on this website to access the proposal form', 'error');
 		return;
 	} //!$user->uid
-	if ($form_state['values']['version'] == 'Old version')
+	if ($form_state['values']['software_version'] == 'Old version')
 	{
 		$form_state['values']['version'] = trim($form_state['values']['older']);
 	} //$form_state['values']['version'] == 'Old version'
@@ -594,7 +593,7 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		":options" =>$v['options'],
 		":project_title" => _df_sentence_case($v['project_title']),
 		":description" => _df_sentence_case($v['description']),
-		":software_version" =>$v['software_version'],
+		":software_version" =>$form_state['values']['software_version'],
 		":directory_name" => $directory_name,
 		":approval_status" => 0,
 		":is_completed" => 0,
