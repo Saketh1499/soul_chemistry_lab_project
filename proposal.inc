@@ -503,10 +503,6 @@ function chemistry_lab_proposal_form_submit($form, &$form_state)
 		drupal_set_message('It is mandatory to login on this website to access the proposal form', 'error');
 		return;
 	} //!$user->uid
-	if ($form_state['values']['software_version'] == 'Old version')
-	{
-		$form_state['values']['version'] = trim($form_state['values']['older']);
-	} //$form_state['values']['version'] == 'Old version'
 	/* inserting the user proposal */
 	$v = $form_state["values"];
 	$project_title = trim($v['project_title']);
