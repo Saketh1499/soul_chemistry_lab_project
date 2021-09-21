@@ -284,7 +284,8 @@ function chemistry_lab_proposal_form($form, &$form_state, $no_js_use = FALSE)
 		'#type' => 'select',
 		'#title' => t('Software Version'),
 		'#options' => array(
-			'vlab 2.1.0' => 'vlab 2.1.0'
+			'vlab 2.1.0' => 'vlab 2.1.0',
+			'Freeplane' => 'Freeplane'
 		),
 		'#required' => TRUE,
 		'#tree' => TRUE,
