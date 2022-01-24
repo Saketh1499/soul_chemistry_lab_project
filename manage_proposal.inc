@@ -717,7 +717,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#datepicker_options' => array(
 			'maxDate' => 0
 		),
-		'#required' => TRUE
+		'#disabled' => TRUE
 	);
 	$form['university'] = array(
 		'#type' => 'textfield',

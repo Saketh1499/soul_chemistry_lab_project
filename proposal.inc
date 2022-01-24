@@ -267,16 +267,16 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		)
 	);
 	$software_version_options =  _soul_list_of_software_version();
-	$form['software_version_id'] = array(
+	$form['software_version'] = array(
 		'#type' => 'select',
-		'#title' => t('Software Version'),
+		'#title' => t('Select Software Version'),
 		'#options' => $software_version_options,
 		'#required' => TRUE,
 		'#ajax' => array(
         	'callback' => 'ajax_solver_used_callback',
         ),
 	);
-	$software_version_id = isset($form_state['values']['software_version_id']) ? $form_state['values']['software_version_id'] : key($software_version_options);
+	$software_version_id = isset($form_state['values']['software_version']) ? $form_state['values']['software_version'] : key($software_version_options);
 	$form['software_version_no'] = array(
 		'#type' => 'select',
 		'#title' => t('Select the Software Version Number to be used'),
@@ -398,7 +398,7 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 function ajax_solver_used_callback($form, $form_state)
 {
 	$commands = array();
-	$software_version_id = isset($form_state['values']['software_version_id']) ? $form_state['values']['software_version_id'] : key($software_version_options);
+	$software_version_id = isset($form_state['values']['software_version']) ? $form_state['values']['software_version'] : key($software_version_options);
 	if($software_version_id != 7){
 		$form['software_version_no']['#options'] = _soul_list_of_software_version_details($software_version_id);/*
 		$form['software_version_no']['#required'] = TRUE;
@@ -614,7 +614,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     sub_category,
     project_title, 
     description,
-    software_version_id,
+    software_version,
     software_version_no,
     other_software_version_no,
     directory_name,
@@ -647,7 +647,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     :sub_category,
     :project_title, 
     :description,
-    :software_version_id,
+    :software_version,
     :software_version_no,
     :other_software_version_no,
     :directory_name,
@@ -680,7 +680,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":sub_category" => $sub_category,
 		":project_title" => _df_sentence_case($v['project_title']),
 		":description" => _df_sentence_case($v['description']),
-		":software_version_id" =>$v['software_version_id'],		
+		":software_version" =>$v['software_version'],		
 		":software_version_no" =>$software_version_no,
 		":other_software_version_no" => $other_software_version_no,
 		":directory_name" => $directory_name,

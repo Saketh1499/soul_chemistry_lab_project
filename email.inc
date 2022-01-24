@@ -35,7 +35,7 @@ function science_and_concept_map_mail($key, &$message, $params)
 			}
 
 			$message['headers'] = $params['science_and_concept_map_proposal_received']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your soul science and concept map Project proposal has been received', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been received', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -53,6 +53,7 @@ University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
+Title of Category  : ' . $proposal_data->category . '
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
@@ -96,7 +97,7 @@ FOSSEE, IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_disapproved']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your soul science and concept map Project proposal has been disapproved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been disapproved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -113,6 +114,7 @@ University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
+Title of Category  : ' . $proposal_data->category . '
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
@@ -160,7 +162,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_approved']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your soul science and concept map Project proposal has been approved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been approved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -177,6 +179,7 @@ University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
+Title of Category  : ' . $proposal_data->category . '
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
@@ -218,7 +221,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_completed']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your soul science and concept map Project proposal has been completed', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been completed', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -235,6 +238,7 @@ University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
+Title of Category  : ' . $proposal_data->category . '
 
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
@@ -282,7 +286,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_deleted']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your soul science and concept map Project proposal has been deleted', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been deleted', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -300,6 +304,7 @@ University/Institute: ' . $proposal_data->university . '
 City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
+Title of Category  : ' . $proposal_data->category . '
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
@@ -327,7 +332,7 @@ FOSSEE,IIT Bombay', array(
 			$proposal_data = $query->execute()->fetchObject();
 			
 			$user = user_load($params['abstract_uploaded']['user_id']);
-			$message['subject'] = t('[!site_name][science and concept map Project] You have uploaded soul science and concept map project files', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] You have uploaded soul science and concept map project files', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -340,7 +345,8 @@ Dear !user_name,
 We received your report and project files for the following details:
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title: ' . $proposal_data->project_title . '
+Project Title : ' . $proposal_data->project_title . '
+Title of Category  : ' . $proposal_data->category . '
 
 The report  and project files are under review. You will be notified when it has been approved.
 
@@ -371,7 +377,7 @@ FOSSEE,IIT Bombay', array(
 			$experiment_data = $experiment_q->fetchObject();
 			$user = user_load($params['solution_approved']['user_id']);
 			$message['headers'] = $params['solution_approved']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your uploaded soul science and concept map solution has been approved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your uploaded soul science and concept map solution has been approved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -383,10 +389,11 @@ Dear !user_name,
 Your following solution has been approved:
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
-Project Title: ' . $proposal_data->project_title . '
-Experiment Title: ' . $experiment_data->title . '
-Solution number: ' . $params['solution_disapproved']['solution_number'] . '
-Caption: ' . $params['solution_disapproved']['solution_caption'] . '
+Project Title : ' . $proposal_data->project_title . '
+Title of Category  : ' . $proposal_data->category . '
+Experiment Title : ' . $experiment_data->title . '
+Solution number : ' . $params['solution_disapproved']['solution_number'] . '
+Caption : ' . $params['solution_disapproved']['solution_caption'] . '
 
 Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/science-and-concept-map-project/science-and-concept-map-project/submission-guidelines
 
@@ -404,7 +411,7 @@ FOSSEE,IIT Bombay', array(
 		case 'solution_disapproved':
 			$user = user_load($params['solution_disapproved']['user_id']);
 			$message['headers'] = $params['solution_disapproved']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] Your uploaded soul science-and-concept-map solution has been disapproved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your uploaded soul science-and-concept-map solution has been disapproved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -417,9 +424,10 @@ Your following solution has been disapproved:
 
 Full Name : ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Project Title: ' . $proposal_data->project_title . '
-Experiment Title: ' . $experiment_data->title . '
-Solution number: ' . $params['solution_disapproved']['solution_number'] . '
-Caption: ' . $params['solution_disapproved']['solution_caption'] . '
+Title of Category  : ' . $proposal_data->category . '
+Experiment Title : ' . $experiment_data->title . '
+Solution number : ' . $params['solution_disapproved']['solution_number'] . '
+Caption : ' . $params['solution_disapproved']['solution_caption'] . '
 
 Reason for dis-approval: ' . $params['solution_disapproved']['message'] . '
 
@@ -438,7 +446,7 @@ FOSSEE,IIT Bombay', array(
 		case 'solution_deleted_user':
 			$user = user_load($params['solution_deleted_user']['user_id']);
 			$message['headers'] = $params['solution_deleted_user']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] User has deleted the pending soul science-and-concept-map solution', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] User has deleted the pending soul science-and-concept-map solution', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -449,10 +457,11 @@ Dear !user_name,
 
 Your following pending solution has been deleted :
 
-Title of the project: ' . $params['solution_deleted_user']['lab_title'] . '
-Title of the Experiment: ' . $params['solution_deleted_user']['experiment_title'] . '
-Solution number: ' . $params['solution_deleted_user']['solution_number'] . '
-Caption: ' . $params['solution_deleted_user']['solution_caption'] . '
+Title of the project : ' . $params['solution_deleted_user']['lab_title'] . '
+Title of Category  : ' . $proposal_data->category . '
+Title of the Experiment : ' . $params['solution_deleted_user']['experiment_title'] . '
+Solution number : ' . $params['solution_deleted_user']['solution_number'] . '
+Caption : ' . $params['solution_deleted_user']['solution_caption'] . '
 
 
 Best Wishes,
@@ -470,7 +479,7 @@ FOSSEE,IIT Bombay', array(
 			$user = user_load($params['dependency_uploaded']['user_id']);
 			$dependency_files = implode(',', $params['dependency_uploaded']['dependency_names']);
 			$message['headers'] = $params['dependency_uploaded']['headers'];
-			$message['subject'] = t('[!site_name][science and concept map Project] You have uploaded dependency file', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] You have uploaded dependency file', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language

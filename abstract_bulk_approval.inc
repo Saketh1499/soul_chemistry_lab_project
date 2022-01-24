@@ -123,7 +123,7 @@ function science_and_concept_map_abstract_bulk_approval_form_submit($form, &$for
 					} //$abstract_data = $abstracts_q->fetchObject()
 					drupal_set_message(t('Approved science and concept map project.'), 'status');
 					// email 
-					$email_subject = t('[!site_name][science and concept map Project] Your uploaded project files for science and concept map project have been approved', array(
+					$email_subject = t('[!site_name][Science and Concept Map Project] Your uploaded project files for science and concept map project have been approved', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(
@@ -197,7 +197,7 @@ FOSSEE,IIT Bombay', array(
 					} //$abstract_data = $abstracts_q->fetchObject()
 					drupal_set_message(t('Resubmit the project files'), 'status');
 					// email 
-					$email_subject = t('[!site_name][science and concept map Project] Your uploaded science and concept map project have been marked as pending', array(
+					$email_subject = t('[!site_name][Science and Concept Map Project] Your uploaded science and concept map project have been marked as pending', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(
@@ -254,7 +254,7 @@ FOSSEE, IIT Bombay', array(
 					if (science_and_concept_map_abstract_delete_project($form_state['values']['science_and_concept_map_project'])) //////
 					{
 						drupal_set_message(t('Dis-Approved and Deleted Entire science and concept map project.'), 'status');
-						$email_subject = t('[!site_name][science and concept map Project] Your uploaded science and concept map project have been marked as dis-approved', array(
+						$email_subject = t('[!site_name][Science and Concept Map Project] Your uploaded science and concept map project have been marked as dis-approved', array(
 						'!site_name' => variable_get('site_name', '')
 					));
 					$email_body = array(

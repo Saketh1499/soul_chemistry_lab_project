@@ -10,7 +10,7 @@ function science_and_concept_map_menu()
 	$items = array();
 	/* PROPOSAL */
 	$items['science-and-concept-map-project/proposal'] = array(
-		'title' => 'science and concept map Proposal Form',
+		'title' => 'Science and Concept Map Proposal Form',
 		'description' => 'Science and Concept Map Proposal Form',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
@@ -23,8 +23,8 @@ function science_and_concept_map_menu()
 		'file' => 'proposal.inc'
 	);
 	$items['science-and-concept-map-project/manage-proposal'] = array(
-		'title' => 'Manage science and concept map Proposals',
-		'description' => 'Manage science and concept map Proposals',
+		'title' => 'Manage Science and Concept Map Proposals',
+		'description' => 'Manage Science and Concept Map Proposals',
 		'page callback' => 'science_and_concept_map_proposal_pending',
 		'access callback' => 'user_access',
 		'access arguments' => array(
@@ -34,7 +34,7 @@ function science_and_concept_map_menu()
 	);
 	$items['science-and-concept-map-project/manage-proposal/pending'] = array(
 		'title' => 'Pending Proposals',
-		'description' => 'Pending soul science and concept map Proposals Queue',
+		'description' => 'Pending Soul Science and Concept Map Proposals Queue',
 		'page callback' => 'science_and_concept_map_proposal_pending',
 		'access callback' => 'user_access',
 		'access arguments' => array(
@@ -109,7 +109,7 @@ function science_and_concept_map_menu()
 		'file' => 'manage_proposal.inc'
 	);
 	$items['science-and-concept-map-project/show-proposal'] = array(
-		'title' => 'soul science and concept map Solution Proposal',
+		'title' => 'Soul Science and Concept Map Solution Proposal',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
 			'science_and_concept_map_solution_proposal_form'
@@ -223,7 +223,7 @@ function science_and_concept_map_menu()
 		'file' => 'upload_code.inc'
 	);
 	$items['science-and-concept-map-project/abstract-code/science-and-concept-map-project-list'] = array(
-		'title' => 'science and concept map',
+		'title' => 'Science and Concept Map',
 		'description' => 'List Experiments',
 		'page callback' => 'science_and_concept_map_abstract',
 		'access arguments' => array(
@@ -320,7 +320,7 @@ function science_and_concept_map_menu()
 	);
 	/* COMPLETED soul science and concept maps */
 	$items['science-and-concept-map-project/completed-projects'] = array(
-		'title' => 'Completed science and concept maps',
+		'title' => 'Completed Science and Concept Maps',
 		'page callback' => 'science_and_concept_map_completed_proposals_all',
 		'access arguments' => array(
 			'soul science and concept map download code'
@@ -328,7 +328,7 @@ function science_and_concept_map_menu()
 		'file' => 'science_and_concept_map_details.inc',
 	);
 	$items['science-and-concept-map-project/completed-projects/simulations'] = array(
-		'title' => 'Completed science and concept maps',
+		'title' => 'Completed Science and Concept Maps',
 		'page callback' => 'science_and_concept_map_completed_proposals_all',
 		'access arguments' => array(
 			'soul science and concept map download code'
@@ -339,7 +339,7 @@ function science_and_concept_map_menu()
 	);
 	/* LABS IN PROGRESS */
 	$items['science-and-concept-map-project/project-in-progress'] = array(
-		'title' => 'science and concept maps in Progress',
+		'title' => 'Science and Concept Maps in Progress',
 		'page callback' => 'science_and_concept_map_progress_all',
 		'access arguments' => array(
 			'soul science and concept map download code'
@@ -402,7 +402,7 @@ function science_and_concept_map_menu()
 	);
 	/* ADMIN SETTINGS */
 	$items['admin/settings/soul-science and concept map'] = array(
-		'title' => 'soul science and concept map Settings',
+		'title' => 'Science and Concept Map Settings',
 		'description' => 'soul science and concept map Settings',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array(
@@ -777,8 +777,8 @@ function _df_list_of_departments()
 function _soul_list_of_category()
   {
     $category = array();
-    $query = db_select('soul_soul_science_and_concept_map_category');
-    $query->fields('soul_soul_science_and_concept_map_category');
+    $query = db_select('soul_science_and_concept_map_category');
+    $query->fields('soul_science_and_concept_map_category');
     $category_list = $query->execute();
     while ($category_list_data = $category_list->fetchObject())
       {
@@ -792,8 +792,8 @@ function _soul_list_of_sub_category()
 	$sub_category = array(
 		0 => '-Select-'
 	);
-	$query = db_select('soul_soul_science_and_concept_map_sub_category');
-	$query->fields('soul_soul_science_and_concept_map_sub_category');
+	$query = db_select('soul_science_and_concept_map_sub_category');
+	$query->fields('soul_science_and_concept_map_sub_category');
 	$sub_category_list = $query->execute();
 	while ($sub_category_list_data = $sub_category_list->fetchObject())
 	{
@@ -810,12 +810,14 @@ function _soul_list_of_software_version()
     $software_version_list = $query->execute();
     while ($software_version_list_data = $software_version_list->fetchObject())
       {
-        $software_version[$software_version_list_data->id] = $software_version_list_data->software_version;
+        $software_version[$software_version_list_data->id] = $software_version_list_data->software_versions;
       }
     return $software_version;
   }
 
-function _soul_list_of_software_version_details($software_version_id){
+
+function _soul_list_of_software_version_details($software_version_id)
+{
     $software_version_id = $software_version_id;
     $software_versions = array(
 		0 => '-Select-'
