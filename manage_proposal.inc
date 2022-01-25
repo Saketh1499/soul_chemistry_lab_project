@@ -150,6 +150,16 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	{
 		$project_guide_email_id = $proposal_data->project_guide_email_id;
 	}
+	$query = db_select('soul_science_and_concept_map_software_version');
+	$query->fields('soul_science_and_concept_map_software_version');
+	$query->condition('id', $proposal_data->software_version);
+	$software_version_data = $query->execute()->fetchObject();
+	if(!$software_version_data){
+		$software_versions = 'NA';
+	}
+	else{
+		$software_versions = $software_version_data->software_versions;
+	}
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
@@ -214,6 +224,21 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->sub_category,
 		'#title' => t('Sub Category')
+	);
+	$form['software_version'] = array(
+		'#type' => 'item',
+		'#markup' => $software_versions,
+		'#title' => t('Software Version')
+	);
+	$form['software_version_no'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->software_version_no,
+		'#title' => t('Software Version No')
+	);
+	$form['other_software_version_no'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->other_software_version_no,
+		'#title' => t('Other Software Version No')
 	);
 	$form['project_guide_name'] = array(
 		'#type' => 'item',
@@ -424,6 +449,57 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		drupal_goto('science-and-concept-map-project/manage-proposal');
 		return;
 	}
+	if ($proposal_data->country == "NULL" || $proposal_data->country == "")
+	{
+		$country = "Not Entered";
+	} //$proposal_data->country == NULL
+	else
+	{
+		$country = $proposal_data->country;
+	}
+	if ($proposal_data->state == "NULL" || $proposal_data->state == "")
+	{
+		$state = "Not Entered";
+	} //$proposal_data->state == NULL
+	else
+	{
+		$state = $proposal_data->state;
+	}
+	if ($proposal_data->city == "NULL" || $proposal_data->city == "")
+	{
+		$city = "Not Entered";
+	} //$proposal_data->city == NULL
+	else
+	{
+		$city = $proposal_data->city;
+	}
+	if ($proposal_data->project_guide_name == "NULL" || $proposal_data->project_guide_name == "")
+	{
+		$project_guide_name = "Not Entered";
+	} //$proposal_data->project_guide_name == NULL
+	else
+	{
+		$project_guide_name = $proposal_data->project_guide_name;
+	}
+	if ($proposal_data->project_guide_email_id == "NULL" || $proposal_data->project_guide_email_id == "")
+	{
+		$project_guide_email_id = "Not Entered";
+	} //$proposal_data->project_guide_email_id == NULL
+	else
+	{
+		$project_guide_email_id = $proposal_data->project_guide_email_id;
+	}
+	$query = db_select('soul_science_and_concept_map_software_version');
+	$query->fields('soul_science_and_concept_map_software_version');
+	$query->condition('id', $proposal_data->software_version);
+	$software_version_data = $query->execute()->fetchObject();
+	if(!$software_version_data){
+		$software_versions = 'NA';
+	}
+	else{
+		$software_versions = $software_version_data->software_versions;
+	}
+
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
@@ -456,17 +532,17 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	);
 	$form['country'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->country,
+		'#markup' => $country,
 		'#title' => t('Country')
 	);
-	$form['all_state'] = array(
+	$form['state'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->state,
+		'#markup' => $state,
 		'#title' => t('State')
 	);
 	$form['city'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->city,
+		'#markup' => $city,
 		'#title' => t('City')
 	);
 	$form['pincode'] = array(
@@ -477,12 +553,12 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	$form['project_guide_name'] = array(
 		'#type' => 'item',
 		'#title' => t('Project guide'),
-		'#markup' => $proposal_data->project_guide_name
+		'#markup' => $project_guide_name
 	);
 	$form['project_guide_email_id'] = array(
 		'#type' => 'item',
 		'#title' => t('Project guide email'),
-		'#markup' => $proposal_data->project_guide_email_id
+		'#markup' => $project_guide_email_id
 	);
 	$form['category'] = array(
 		'#type' => 'item',
@@ -494,15 +570,20 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#markup' => $proposal_data->sub_category,
 		'#title' => t('Sub Category')
 	);
-	$form['software_version_id'] = array(
+	$form['software_version'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->software_version_id,
+		'#markup' => $software_versions,
 		'#title' => t('Software Version')
 	);
 	$form['software_version_no'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->software_version_no,
 		'#title' => t('Software Version No')
+	);
+	$form['other_software_version_no'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->other_software_version_no,
+		'#title' => t('Other Software Version No')
 	);
 	$form['project_title'] = array(
 		'#type' => 'item',
@@ -678,6 +759,16 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		drupal_goto('science-and-concept-map-project/manage-proposal');
 		return;
 	}
+	$query = db_select('soul_science_and_concept_map_software_version');
+	$query->fields('soul_science_and_concept_map_software_version');
+	$query->condition('id', $proposal_data->software_version);
+	$software_version_data = $query->execute()->fetchObject();
+	if(!$software_version_data){
+		$software_versions = 'NA';
+	}
+	else{
+		$software_versions = $software_version_data->software_versions;
+	}
 	$user_data = user_load($proposal_data->uid);
 	$form['name_title'] = array(
 		'#type' => 'select',
@@ -833,6 +924,21 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->sub_category,
 		'#title' => t('Sub Category')
+	);
+	$form['software_version'] = array(
+		'#type' => 'item',
+		'#markup' => $software_versions,
+		'#title' => t('Software Version')
+	);
+	$form['software_version_no'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->software_version_no,
+		'#title' => t('Software Version No')
+	);
+	$form['other_software_version_no'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->other_software_version_no,
+		'#title' => t('Other Software Version No')
 	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',
